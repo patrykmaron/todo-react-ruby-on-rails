@@ -1,39 +1,40 @@
-process.env.NODE_ENV = process.env.NODE_ENV || "development";
+process.env.NODE_ENV = process.env.NODE_ENV || 'development'
 
-const webpackConfig = require("./webpackConfig");
+const { devServer } = require('@rails/webpacker')
+const webpackConfig = require('./webpackConfig')
 
-module.exports = webpackConfig();
+module.exports = webpackConfig()
 
 const developmentOnly = () => {
-  const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
-  const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
-  const path = require("path");
+  const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
+  const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
+  const path = require('path')
 
-  const environment = require("./environment");
+  const environment = require('./environment')
 
-  const isWebpackDevServer = process.env.WEBPACK_DEV_SERVER;
+  const isWebpackDevServer = process.env.WEBPACK_DEV_SERVER
 
   //plugins
   if (isWebpackDevServer) {
     environment.plugins.append(
-      "ReactRefreshWebpackPlugin",
+      'ReactRefreshWebpackPlugin',
       new ReactRefreshWebpackPlugin({
         overlay: {
-          sockPort: 3035,
-        },
+          sockPort: devServer.port
+        }
       })
-    );
+    )
   }
 
   environment.plugins.append(
-    "ForkTsCheckerWebpackPlugin",
+    'ForkTsCheckerWebpackPlugin',
     new ForkTsCheckerWebpackPlugin({
       typescript: {
-        configFile: path.resolve(__dirname, "../../tsconfig.json"),
+        configFile: path.resolve(__dirname, '../../tsconfig.json')
       },
-      async: false,
+      async: false
     })
-  );
-};
+  )
+}
 
-module.exports = webpackConfig(developmentOnly);
+module.exports = webpackConfig(developmentOnly)

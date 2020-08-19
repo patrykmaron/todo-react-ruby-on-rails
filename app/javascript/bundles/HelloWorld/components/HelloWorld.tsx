@@ -1,12 +1,14 @@
-import * as React from "react";
-import { useState, FunctionComponent } from "react";
+import * as React from 'react'
+import { useState, FunctionComponent } from 'react'
 
 export interface Props {
-  name: string;
+  name: string
 }
 
+// Note,  you need to declare the type so that ReactOnRails.register has the
+// proper type.
 const HelloWorld: FunctionComponent<Props> = (props: Props) => {
-  const [name, setName] = useState(props.name);
+  const [name, setName] = useState(props.name)
 
   return (
     <div>
@@ -14,7 +16,7 @@ const HelloWorld: FunctionComponent<Props> = (props: Props) => {
       <hr />
       <form>
         <label htmlFor="name">
-          Say hello to:
+          Say hello to me:
           <input
             id="name"
             type="text"
@@ -24,7 +26,7 @@ const HelloWorld: FunctionComponent<Props> = (props: Props) => {
         </label>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default HelloWorld;
+export default HelloWorld
